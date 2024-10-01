@@ -102,7 +102,10 @@ function App() {
       )}
 
       {selectedEnemyChampion && (
-        <MatchupTable championData={selectedEnemyChampion} />
+        <MatchupTable
+          key={`${selectedMyChampion.value}-${selectedEnemyChampion.value}`} // Force re-render
+          championData={selectedEnemyChampion}
+        />
       )}
     </div>
   );

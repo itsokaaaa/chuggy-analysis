@@ -1,34 +1,37 @@
-/* App.css */
+/* Dark Mode App.css */
 .App {
   text-align: center;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: #1e1e1e; /* Dark background */
   font-family: Arial, sans-serif;
 }
 
 h1 {
-  color: #343a40;
+  color: #f0f0f0; /* Light text color */
 }
 
 /* Center the search bar container */
 .search-bar {
-  margin: 20px auto; /* Center on the X-axis */
+  margin: 20px auto;
   display: flex;
-  justify-content: center; /* Center content */
-  align-items: center; /* Align items vertically */
+  justify-content: center;
+  align-items: center;
 }
 
 .search-input {
   padding: 10px;
   width: 300px;
   font-size: 16px;
+  background-color: #333; /* Dark input background */
+  color: #fff; /* Light input text */
+  border: 1px solid #444;
 }
 
 .matchup-table {
   margin-top: 20px;
   display: inline-block;
-  background: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background: #2a2a2a; /* Dark background */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 8px;
 }
@@ -40,7 +43,8 @@ h1 {
 
 .matchup-table td {
   padding: 8px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #444; /* Darker border */
+  color: #f0f0f0; /* Light text */
 }
 
 .matchup-table input {
@@ -48,7 +52,8 @@ h1 {
   padding: 5px;
   width: 100%;
   font-size: 14px;
-  background-color: #f0f0f0;
+  background-color: #333;
+  color: #fff;
   border-radius: 4px;
 }
 
@@ -62,33 +67,34 @@ h1 {
 
 .champion-button {
   padding: 10px 15px;
-  border: 1px solid #ccc;
-  background-color: #f0f0f0;
+  border: 1px solid #555;
+  background-color: #444;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  color: #fff;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .champion-button:hover {
-  background-color: #e0e0e0;
+  background-color: #555;
 }
 
 .champion-button.active {
-  background-color: #007bff;
+  background-color: #1a73e8;
   color: white;
-  border-color: #007bff;
+  border-color: #1a73e8;
 }
 
 .champion-button-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align items */
+  align-items: center;
 }
 
 .champion-subtitle {
-  font-size: 12px; /* Adjust the font size as needed */
-  color: #6c757d; /* Grey color */
-  text-align: center; /* Center align the subtitle */
-  margin-top: 4px; /* Space between the champion button and subtitle */
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  margin-top: 4px;
 }
