@@ -1,38 +1,94 @@
+/* App.css */
 .App {
   text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  color: #343a40;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Center the search bar container */
+.search-bar {
+  margin: 20px auto; /* Center on the X-axis */
+  display: flex;
+  justify-content: center; /* Center content */
+  align-items: center; /* Align items vertically */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.search-input {
+  padding: 10px;
+  width: 300px;
+  font-size: 16px;
+}
+
+.matchup-table {
+  margin-top: 20px;
+  display: inline-block;
+  background: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.matchup-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.matchup-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.matchup-table input {
+  border: none;
+  padding: 5px;
+  width: 100%;
+  font-size: 14px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+/* Champion buttons styling */
+.champion-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.champion-button {
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.champion-button:hover {
+  background-color: #e0e0e0;
+}
+
+.champion-button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.champion-button-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center; /* Center align items */
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.champion-subtitle {
+  font-size: 12px; /* Adjust the font size as needed */
+  color: #6c757d; /* Grey color */
+  text-align: center; /* Center align the subtitle */
+  margin-top: 4px; /* Space between the champion button and subtitle */
 }
