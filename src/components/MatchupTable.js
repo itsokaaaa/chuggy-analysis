@@ -4,12 +4,12 @@ import "./MatchupTable.css"; // Your existing CSS
 
 // The URLs to fetch the updated data
 const runesUrl =
-  "http://ddragon.leagueoflegends.com/cdn/14.19.1/data/en_US/runesReforged.json";
+  "https://ddragon.leagueoflegends.com/cdn/14.19.1/data/en_US/runesReforged.json";
 const itemUrl =
-  "http://ddragon.leagueoflegends.com/cdn/14.19.1/data/en_US/item.json"; // Item JSON URL
+  "https://ddragon.leagueoflegends.com/cdn/14.19.1/data/en_US/item.json"; // Item JSON URL
 const runeBasePath = "https://ddragon.canisback.com/img/"; // Base URL for runes
 const itemImageBasePath =
-  "http://ddragon.leagueoflegends.com/cdn/14.19.1/img/item/"; // Base URL for item images
+  "https://ddragon.leagueoflegends.com/cdn/14.19.1/img/item/"; // Base URL for item images
 
 // Function to determine dot color based on difficulty
 const getDotColor = (difficulty) => {
