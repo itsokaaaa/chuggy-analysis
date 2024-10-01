@@ -68,7 +68,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>League of Legends Matchup Analysis</h1>
+      <h1>League of Legends Chuggy Analysis</h1>
       <div className="champion-buttons">
         {myChampions.map((champ) => (
           <div key={champ.value} className="champion-button-container">
