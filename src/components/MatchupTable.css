@@ -1,27 +1,27 @@
-/* Dark Mode MatchupTable.css */
+/* Enhanced Dark Mode MatchupTable.css */
 .matchup-card {
-    max-width: 800px;
+    max-width: 850px;
     margin: 20px auto;
-    padding: 20px;
-    background: #2a2a2a;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
+    padding: 25px;
+    background: #1e242b;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
     text-align: left;
-    color: #f0f0f0; /* Light text color */
+    color: #d1d5da;
   }
   
   .matchup-header {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #3a3f44;
     padding-bottom: 10px;
     margin-bottom: 20px;
   }
   
   .champion-icon {
-    width: 64px;
-    height: 64px;
-    margin-right: 20px;
+    width: 70px;
+    height: 70px;
+    margin-right: 15px;
     border-radius: 50%;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   }
@@ -38,8 +38,9 @@
   }
   
   .matchup-section h3 {
-    margin: 0 0 5px 0;
-    color: #1a73e8;
+    margin: 0 0 8px 0;
+    color: #70b7ff;
+    font-size: 1.1em;
   }
   
   .difficulty-container {
@@ -52,18 +53,24 @@
     height: 12px;
     border-radius: 50%;
     margin-right: 8px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   }
   
   .runes-container {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
     margin-bottom: 10px;
   }
   
   .rune-icon img, .item-icon img {
-    width: 32px;
-    height: 32px;
-    border-radius: 4px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+  }
+  
+  .rune-icon img:hover, .item-icon img:hover {
+    transform: scale(1.1); /* Enhance hover effect */
   }

@@ -97,6 +97,22 @@ function App() {
             placeholder="Select enemy champion..."
             className="search-input"
             isDisabled={!selectedMyChampion}
+            styles={{
+              menu: (provided) => ({
+                ...provided,
+                backgroundColor: "#ffffff", // White background
+                color: "#000000", // Black text
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isFocused ? "#e0e0e0" : "#ffffff", // Light grey highlight
+                color: "#000000", // Black text for options
+              }),
+              singleValue: (provided) => ({
+                ...provided,
+                color: "#000000", // Black text for the selected value
+              }),
+            }}
           />
         </div>
       )}

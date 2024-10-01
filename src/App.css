@@ -1,50 +1,58 @@
-/* Dark Mode App.css */
+/* Enhanced Dark Mode App.css */
+body{
+  background-color: #11161c;
+}
+
 .App {
   text-align: center;
   padding: 20px;
-  background-color: #1e1e1e; /* Dark background */
-  font-family: Arial, sans-serif;
+  background-color: #161b22; /* Slightly deeper dark background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #e0e0e0; /* Softer white text for less strain */
 }
 
 h1 {
-  color: #f0f0f0; /* Light text color */
+  color: #70b7ff; /* Brighter accent color for main title */
+  font-size: 2.5em;
+  margin-bottom: 15px;
 }
 
-/* Center the search bar container */
 .search-bar {
   margin: 20px auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #161b22;
 }
 
 .search-input {
   padding: 10px;
   width: 300px;
   font-size: 16px;
-  background-color: #333; /* Dark input background */
-  color: #fff; /* Light input text */
-  border: 1px solid #444;
+  background-color: #21262d; /* Darker input background */
+  color: #ffffff;
+  border: 1px solid #3a3f44;
+  border-radius: 6px;
+  transition: border 0.3s;
+}
+
+.search-input:focus {
+  border: 1px solid #70b7ff; /* Accent border on focus */
 }
 
 .matchup-table {
   margin-top: 20px;
   display: inline-block;
-  background: #2a2a2a; /* Dark background */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.matchup-table table {
-  width: 100%;
-  border-collapse: collapse;
+  background: #1e242b; /* Darker background */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
+  padding: 25px;
+  border-radius: 10px;
 }
 
 .matchup-table td {
-  padding: 8px;
-  border-bottom: 1px solid #444; /* Darker border */
-  color: #f0f0f0; /* Light text */
+  padding: 10px;
+  border-bottom: 1px solid #3a3f44; /* Darker border */
+  color: #d1d5da;
 }
 
 .matchup-table input {
@@ -52,8 +60,8 @@ h1 {
   padding: 5px;
   width: 100%;
   font-size: 14px;
-  background-color: #333;
-  color: #fff;
+  background-color: #2d333b;
+  color: #ffffff;
   border-radius: 4px;
 }
 
@@ -61,40 +69,61 @@ h1 {
 .champion-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 .champion-button {
-  padding: 10px 15px;
-  border: 1px solid #555;
-  background-color: #444;
-  border-radius: 5px;
+  padding: 12px 18px;
+  border: 1px solid #3a3f44;
+  background-color: #2d333b;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
-  color: #fff;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 15px;
+  color: #d1d5da;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
 
 .champion-button:hover {
-  background-color: #555;
+  background-color: #3a3f44;
+  transform: scale(1.05); /* Slight hover effect */
 }
 
 .champion-button.active {
-  background-color: #1a73e8;
+  background-color: #388e3c; /* More distinct active color */
   color: white;
-  border-color: #1a73e8;
-}
-
-.champion-button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-color: #388e3c;
 }
 
 .champion-subtitle {
-  font-size: 12px;
-  color: #888;
+  font-size: 13px;
+  color: #9099a1;
   text-align: center;
-  margin-top: 4px;
+  margin-top: 5px;
+}
+
+.react-select__control {
+  background-color: #2d333b !important; /* Dark background */
+  border: 1px solid #444c56 !important; /* Border color */
+  color: #d1d5da !important; /* Text color */
+}
+
+/* Update the search bar suggestion menu to be black text on white background */
+.react-select__menu {
+  background-color: #ffffff !important; /* White background */
+  color: #000000 !important; /* Black text */
+}
+
+.react-select__option {
+  background-color: #ffffff !important; /* White background for options */
+  color: #000000 !important; /* Black text */
+}
+
+.react-select__option--is-focused {
+  background-color: #e0e0e0 !important; /* Light grey highlight on hover */
+}
+
+.react-select__option--is-selected {
+  background-color: #d1d5da !important; /* Slightly darker grey for selected option */
+  color: #000000 !important; /* Ensure black text remains */
 }
