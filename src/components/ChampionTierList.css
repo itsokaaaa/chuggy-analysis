@@ -1,0 +1,38 @@
+.tier-list h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .tier-category {
+    margin-bottom: 20px;
+  }
+  
+  .tier-category h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #bbbbbb;
+  }
+  
+  .tier-category-icons {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 10px; /* Space between icons */
+  }
+  
+  .tier-category-icons li {
+    cursor: pointer;
+  }
+  
+  .champion-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .champion-icon:hover {
+    transform: scale(1.1);
+  }

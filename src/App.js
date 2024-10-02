@@ -1,128 +1,105 @@
-// App.js
 import React, { useState } from "react";
-import MatchupTable from "./components/MatchupTable";
-import Select from "react-select";
+import ChampionTierList from "./components/ChampionTierList";
+import MatchupTable from "./components/MatchupTable"; // Import MatchupTable
 import "./App.css";
 
-// Data for champions you play
-const myChampions = [
-  { label: "Jax", value: "Jax" },
-  { label: "Camille", value: "Camille" },
-  { label: "Darius", value: "Darius" },
-  { label: "Gwen", value: "Gwen" },
-  { label: "Mordekaiser", value: "Mordekaiser" },
-  { label: "Renekton", value: "Renekton" },
+const initialChampions = [
+  { label: "Jax", value: "Jax", icon: "Jax" },
+  { label: "Camille", value: "Camille", icon: "Camille" },
+  { label: "Darius", value: "Darius", icon: "Darius" },
+  { label: "Gwen", value: "Gwen", icon: "Gwen" },
+  { label: "Mordekaiser", value: "Mordekaiser", icon: "Mordekaiser" },
+  { label: "Renekton", value: "Renekton", icon: "Renekton" },
 ];
 
-// Data for matchups (add more champions as needed)
-const championsData = {
-  Jax: [
-    {
-      label: "Aatrox",
-      value: "Aatrox",
-      difficulty: "Medium",
-      runes: "Conqueror, Triumph, Tenacity, Last Stand",
-      itemPath: "Divine Sunderer, Sterak’s Gage, Guardian Angel",
-      playstyle: "Block combos with Counter-Strike.",
-    },
-    {
-      label: "Camille",
-      value: "Camille",
-      difficulty: "Medium",
-      runes: "Conqueror, Triumph, Legend: Alacrity, Last Stand",
-      itemPath: "Divine Sunderer, Blade of the Ruined King, Sterak’s Gage",
-      playstyle: "Avoid hooks, trade when shield is down.",
-    },
-    // More matchups for Jax...
-  ],
-  Camille: [
-    {
-      label: "Darius",
-      value: "Darius",
-      difficulty: "Hard",
-      runes: "Grasp of the Undying, Shield Bash",
-      itemPath: "Divine Sunderer, Sterak’s Gage",
-      playstyle: "Avoid his Q, trade when his abilities are on cooldown.",
-    },
-    // More matchups for Camille...
-  ],
-  // Add data for Darius, Gwen, Mordekaiser, Renekton, etc.
+const tierData = {
+  Jax: {
+    positiveMatchups: ["Garen", "Nasus", "Yorick"],
+    skillMatchups: ["Camille", "Fiora", "Riven"],
+    badMatchups: ["Renekton", "Sett", "Darius"],
+  },
+  Camille: {
+    positiveMatchups: ["Garen", "Mordekaiser", "Aatrox"],
+    skillMatchups: ["Fiora", "Riven", "Jax"],
+    badMatchups: ["Darius", "Renekton", "Gwen"],
+  },
 };
 
 function App() {
-  const [selectedMyChampion, setSelectedMyChampion] = useState(null);
-  const [selectedEnemyChampion, setSelectedEnemyChampion] = useState(null);
+  const [myChampions] = useState(initialChampions);
+  const [selectedMyChampion, setSelectedMyChampion] = useState(
+    initialChampions[0]
+  );
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPatch, setCurrentPatch] = useState("14.19.1");
 
-  const handleMyChampionChange = (champion) => {
+  const handleChampionSelect = (champion) => {
     setSelectedMyChampion(champion);
-    setSelectedEnemyChampion(null); // Reset enemy selection when you choose a different main champion
   };
 
-  const handleEnemyChampionChange = (selectedOption) => {
-    setSelectedEnemyChampion(selectedOption);
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
-  const enemyOptions = selectedMyChampion
-    ? championsData[selectedMyChampion.value]
-    : [];
+  const handlePatchUpdate = () => {
+    const newPatch = prompt("Enter the new patch version (e.g., 14.19.1):");
+    if (newPatch) {
+      setCurrentPatch(newPatch);
+    }
+  };
 
   return (
     <div className="App">
-      <h1>League of Legends Chuggy Analysis</h1>
-      <div className="champion-buttons">
-        {myChampions.map((champ) => (
-          <div key={champ.value} className="champion-button-container">
-            <button
-              onClick={() => handleMyChampionChange(champ)}
-              className={`champion-button ${
-                selectedMyChampion?.value === champ.value ? "active" : ""
+      {/* Sidebar */}
+      <div className="sidebar">
+        <ul className="champion-list">
+          {myChampions.map((champion) => (
+            <li
+              key={champion.value}
+              className={`champion-item ${
+                selectedMyChampion.value === champion.value ? "active" : ""
               }`}
+              onClick={() => handleChampionSelect(champion)}
             >
-              {champ.label}
-            </button>
-            {champ.label === "Jax" ||
-            champ.label === "Camille" ||
-            champ.label === "Renekton" ? (
-              <div className="champion-subtitle">Blindpick</div> // Add the subtitle here
-            ) : null}
-          </div>
-        ))}
+              <img
+                src={`https://ddragon.leagueoflegends.com/cdn/${currentPatch}/img/champion/${champion.icon}.png`}
+                alt={champion.label}
+                className="champion-icon"
+              />
+              <span>{champion.label}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      {selectedMyChampion && (
-        <div className="search-bar">
-          <Select
-            options={enemyOptions}
-            onChange={handleEnemyChampionChange}
-            placeholder="Select enemy champion..."
-            className="search-input"
-            isDisabled={!selectedMyChampion}
-            styles={{
-              menu: (provided) => ({
-                ...provided,
-                backgroundColor: "#ffffff", // White background
-                color: "#000000", // Black text
-              }),
-              option: (provided, state) => ({
-                ...provided,
-                backgroundColor: state.isFocused ? "#e0e0e0" : "#ffffff", // Light grey highlight
-                color: "#000000", // Black text for options
-              }),
-              singleValue: (provided) => ({
-                ...provided,
-                color: "#000000", // Black text for the selected value
-              }),
-            }}
+      {/* Main content with centered search bar */}
+      <div className="content">
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search champions..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="search-bar"
           />
         </div>
-      )}
 
-      {selectedEnemyChampion && (
-        <MatchupTable
-          key={`${selectedMyChampion.value}-${selectedEnemyChampion.value}`} // Force re-render
-          championData={selectedEnemyChampion}
+        {/* A shorter label "P" inside the button */}
+        <button onClick={handlePatchUpdate} className="patch-button">
+          P
+        </button>
+
+        <ChampionTierList
+          champion={selectedMyChampion.label}
+          tierData={tierData[selectedMyChampion.label]}
         />
-      )}
+
+        {/* Add MatchupTable for displaying item recommendations */}
+        <MatchupTable
+          champion={selectedMyChampion.label}
+          currentPatch={currentPatch}
+        />
+      </div>
     </div>
   );
 }
