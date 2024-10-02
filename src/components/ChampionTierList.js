@@ -1,92 +1,162 @@
 import React, { useState } from "react";
 import "./ChampionTierList.css";
-import ChampionCard from "./ChampionCard"; // Component for the card
+import { useDrag, useDrop, DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-const getChampionIconUrl = (championName) => {
-  return `https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${championName}.png`;
+const DraggableChampion = ({
+  champion,
+  index,
+  tierType,
+  moveChampion,
+  isEditMode,
+}) => {
+  const [{ isDragging }, drag] = useDrag({
+    type: "CHAMPION",
+    item: { index, tierType },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  });
+
+  return (
+    <li
+      className={`champion-icon ${isDragging ? "dragging" : ""}`}
+      ref={isEditMode ? drag : null}
+      title={champion}
+    >
+      <img
+        src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${champion}.png`}
+        alt={champion}
+        className="champion-icon-image"
+        style={{ cursor: isEditMode ? "move" : "default" }}
+      />
+    </li>
+  );
+};
+
+const DropZone = ({ children, onDrop, isEditMode }) => {
+  const [, drop] = useDrop({
+    accept: "CHAMPION",
+    drop: (item) => onDrop(item),
+  });
+
+  return (
+    <ul className="tier-category-icons" ref={isEditMode ? drop : null}>
+      {children}
+    </ul>
+  );
 };
 
 const ChampionTierList = ({ champion, tierData }) => {
-  const [selectedOpponent, setSelectedOpponent] = useState(null);
-  const [matchupType, setMatchupType] = useState(null); // State to track which matchup type
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editedTierData, setEditedTierData] = useState(tierData);
 
-  if (!tierData) return null;
+  const moveChampion = (fromIndex, fromTier, toTier) => {
+    const newTierData = { ...editedTierData };
 
-  // Handle the champion click and set the matchup type
-  const handleChampionClick = (opponent, type) => {
-    setSelectedOpponent(opponent);
-    setMatchupType(type); // Set the type of matchup (positive, skill, bad)
+    // Remove champion from the original tier
+    const [movedChampion] = newTierData[fromTier].splice(fromIndex, 1);
+
+    // Add the champion to the new tier
+    newTierData[toTier].push(movedChampion);
+
+    setEditedTierData(newTierData);
+  };
+
+  const handleDrop = (item, toTier) => {
+    moveChampion(item.index, item.tierType, toTier);
   };
 
   return (
     <div className="tier-list">
-      <h2>{champion}'s Tier List</h2>
+      <h2>
+        {champion}'s Tier List
+        <button onClick={() => setIsEditMode(!isEditMode)} className="edit-btn">
+          {isEditMode ? "Cancel" : "Edit"}
+        </button>
+      </h2>
 
-      {/* Positive Matchups */}
-      <div className="tier-category">
-        <h3>Matchup positif</h3>
-        <ul className="tier-category-icons">
-          {tierData.positiveMatchups.map((matchup, index) => (
-            <li
-              key={index}
-              onClick={() => handleChampionClick(matchup, "positive")}
+      <DndProvider backend={HTML5Backend}>
+        {/* Positive Matchups */}
+        <div className="tier-category">
+          <h3>
+            Matchup positif{" "}
+            {isEditMode && <span className="edit-preview">Drag here</span>}
+          </h3>
+          <DropZone
+            onDrop={(item) => handleDrop(item, "positiveMatchups")}
+            isEditMode={isEditMode}
+          >
+            {editedTierData.positiveMatchups.map((matchup, index) => (
+              <DraggableChampion
+                key={index}
+                index={index}
+                champion={matchup}
+                tierType="positiveMatchups"
+                moveChampion={moveChampion}
+                isEditMode={isEditMode}
+              />
+            ))}
+          </DropZone>
+        </div>
+
+        {/* Skill Matchups */}
+        <div className="tier-category">
+          <h3>
+            Skill matchup{" "}
+            {isEditMode && <span className="edit-preview">Drag here</span>}
+          </h3>
+          <DropZone
+            onDrop={(item) => handleDrop(item, "skillMatchups")}
+            isEditMode={isEditMode}
+          >
+            {editedTierData.skillMatchups.map((matchup, index) => (
+              <DraggableChampion
+                key={index}
+                index={index}
+                champion={matchup}
+                tierType="skillMatchups"
+                moveChampion={moveChampion}
+                isEditMode={isEditMode}
+              />
+            ))}
+          </DropZone>
+        </div>
+
+        {/* Bad Matchups */}
+        <div className="tier-category">
+          <h3>
+            Bad Matchup{" "}
+            {isEditMode && <span className="edit-preview">Drag here</span>}
+          </h3>
+          <DropZone
+            onDrop={(item) => handleDrop(item, "badMatchups")}
+            isEditMode={isEditMode}
+          >
+            {editedTierData.badMatchups.map((matchup, index) => (
+              <DraggableChampion
+                key={index}
+                index={index}
+                champion={matchup}
+                tierType="badMatchups"
+                moveChampion={moveChampion}
+                isEditMode={isEditMode}
+              />
+            ))}
+          </DropZone>
+        </div>
+
+        {isEditMode && (
+          <div className="save-button-container">
+            <button
+              onClick={() => setIsEditMode(false)}
+              className="save-button"
             >
-              <img
-                src={getChampionIconUrl(matchup)}
-                alt={matchup}
-                className="champion-icon"
-                title={matchup}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Skill Matchups */}
-      <div className="tier-category">
-        <h3>Skill matchup</h3>
-        <ul className="tier-category-icons">
-          {tierData.skillMatchups.map((matchup, index) => (
-            <li
-              key={index}
-              onClick={() => handleChampionClick(matchup, "skill")}
-            >
-              <img
-                src={getChampionIconUrl(matchup)}
-                alt={matchup}
-                className="champion-icon"
-                title={matchup}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Bad Matchups */}
-      <div className="tier-category">
-        <h3>Bad Matchup</h3>
-        <ul className="tier-category-icons">
-          {tierData.badMatchups.map((matchup, index) => (
-            <li key={index} onClick={() => handleChampionClick(matchup, "bad")}>
-              <img
-                src={getChampionIconUrl(matchup)}
-                alt={matchup}
-                className="champion-icon"
-                title={matchup}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Render the card when a champion is selected */}
-      {selectedOpponent && (
-        <ChampionCard
-          champion={selectedOpponent}
-          matchupType={matchupType} // Pass the matchup type here
-          onClose={() => setSelectedOpponent(null)}
-        />
-      )}
+              Save
+            </button>
+          </div>
+        )}
+      </DndProvider>
     </div>
   );
 };
